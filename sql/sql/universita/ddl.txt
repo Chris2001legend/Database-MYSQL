@@ -1,0 +1,50 @@
+CREATE SCHEMA `universita` ;
+
+CREATE  TABLE `universita`.`alunni` (
+  `id_al` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NOT NULL ,
+  `cognome` VARCHAR(45) NOT NULL ,
+  `data_nascita` DATE NOT NULL ,
+  `eta` INT NOT NULL ,
+  PRIMARY KEY (`id_al`) );
+
+CREATE  TABLE `universita`.`docenti` (
+  `id_do` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NOT NULL ,
+  `cognome` VARCHAR(45) NOT NULL ,
+  `data_nascita` DATE NOT NULL ,
+  `eta` INT NOT NULL ,
+  PRIMARY KEY (`id_do`) );
+
+CREATE  TABLE `universita`.`corsi` (
+  `id_co` INT NOT NULL AUTO_INCREMENT ,
+  `nome_corso` VARCHAR(45) NOT NULL ,
+  `inizio_corso` DATE NOT NULL ,
+  `fine_corso` DATE NOT NULL ,
+  `id_insegnante` INT NOT NULL ,
+  PRIMARY KEY (`id_co`) ,
+  INDEX `id_do` (`id_insegnante` ASC) ,
+  CONSTRAINT `id_do`
+    FOREIGN KEY (`id_insegnante` )
+    REFERENCES `universita`.`docenti` (`id_do` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE  TABLE `universita`.`classi` (
+  `n_classe` INT NOT NULL ,
+  `id_corso` INT NOT NULL ,
+  `id_alunno` INT NOT NULL ,
+  INDEX `id_co` (`id_corso` ASC) ,
+  INDEX `id_al` (`id_alunno` ASC) ,
+  CONSTRAINT `id_co`
+    FOREIGN KEY (`id_corso` )
+    REFERENCES `universita`.`corsi` (`id_co` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `id_al`
+    FOREIGN KEY (`id_alunno` )
+    REFERENCES `universita`.`alunni` (`id_al` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+ALTER TABLE `universita`.`classi` 
+ADD PRIMARY KEY (`n_classe`) ;

@@ -1,0 +1,26 @@
+INSERT INTO `cinema`.`attori` (`nome`, `anno_nascita`, `nazionalita`) VALUES ('Christian', '2001-07-19', 'Italiana');
+INSERT INTO `cinema`.`attori` (`nome`, `anno_nascita`, `nazionalita`) VALUES ('Omar', '2001-05-24', 'Italiana');
+INSERT INTO `cinema`.`attori` (`nome`, `anno_nascita`, `nazionalita`) VALUES ('Steven', '1965-02-18', 'Inglese');
+INSERT INTO `cinema`.`attori` (`nome`, `anno_nascita`, `nazionalita`) VALUES ('Loki', '1983-10-30', 'Norvegia');
+
+INSERT INTO `cinema`.`film` (`titolo`, `anno_produzioni`, `genere`, `duarata`) VALUES ('Titanic', '1962-12-01', 'Tragico', 180);
+INSERT INTO `cinema`.`film` (`titolo`, `anno_produzioni`, `genere`, `duarata`) VALUES ('Dr.Strange', '2022-04-06', 'Horror', 153);
+INSERT INTO `cinema`.`film` (`titolo`, `anno_produzioni`, `genere`, `duarata`) VALUES ('Agente007', '2002-03-10', 'Spionaggio', 129);
+
+INSERT INTO `cinema`.`regista` (`nome`, `cognome`, `nazionalita`) VALUES ('Gigi', 'Proiettile', 'Italiana');
+INSERT INTO `cinema`.`regista` (`nome`, `cognome`, `nazionalita`) VALUES ('Von', 'Crock', 'Olandese');
+INSERT INTO `cinema`.`regista` (`nome`, `cognome`, `nazionalita`) VALUES ('Ryan', 'Reynolds', 'Americana');
+
+INSERT INTO `cinema`.`sale` (`n_posti`, `nome`, `citta`) VALUES (800, 'Royal', 'Civitavecchia');
+INSERT INTO `cinema`.`sale` (`n_posti`, `nome`, `citta`) VALUES (1240, 'Maximo', 'Roma');
+INSERT INTO `cinema`.`sale` (`n_posti`, `nome`, `citta`) VALUES (130, 'Colley', 'Londra');
+
+INSERT INTO `cinema`.`recite` (`id_attore`, `id_film`, `data_recita`) VALUES (1, 1, '2022-08-20');
+INSERT INTO `cinema`.`recite` (`id_attore`, `id_film`, `data_recita`) VALUES (3, 2, '1970-10-15');
+INSERT INTO `cinema`.`recite` (`id_attore`, `id_film`, `data_recita`) VALUES (3, 1, '1990-12-31');
+INSERT INTO `cinema`.`recite` (`id_attore`, `id_film`, `data_recita`) VALUES (4, 3, '2000-01-11');
+
+INSERT INTO `cinema`.`proiezioni` (`id_sale`, `id_films`, `id_registi`, `data_proiezione`, `incasso`) VALUES (1, 1, 1, '2020-08-15', 789);
+INSERT INTO `cinema`.`proiezioni` (`id_sale`, `id_films`, `id_registi`, `data_proiezione`, `incasso`) VALUES (1, 2, 1, '1979-10-10', 999.83);
+INSERT INTO `cinema`.`proiezioni` (`id_sale`, `id_films`, `id_registi`, `data_proiezione`, `incasso`) VALUES (2, 1, 3, '2000-01-01', 745.73);
+INSERT INTO `cinema`.`proiezioni` (`id_sale`, `id_films`, `id_registi`, `data_proiezione`, `incasso`) VALUES (3, 3, 2, '1999-02-27', 921.18);

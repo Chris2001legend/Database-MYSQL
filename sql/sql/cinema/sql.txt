@@ -1,0 +1,127 @@
+1- selezionare i nomi dei registi che hanno diretto film nel 1962 ma non hanno diretto film nel 1963
+SELECT r.nome, r.cognome
+FROM regista as r
+join proiezioni as p
+on r.id_re = p.id_registi
+join film as f
+on p.id_films = f.id_f
+where f.anno_produzioni between '1962-1-1' and '1962-12-31'
+
+2- registi che hanno diretto film in proiezione nell'anno 2019
+SELECT r.nome
+FROM regista AS r
+INNER JOIN proiezioni AS p
+ON r.id_re=p.id_registi
+WHERE p.data_proiezione BETWEEN '2019-01-01' AND '2019-12-31'
+
+3- numero dei film tragici che sono stati prodotti nel 1962 e proiettati nelle sale di Londra
+SELECT count(*) as 'numero di film tragici'
+from film as f
+join proiezioni as p
+on f.id_f = p.id_films
+join sale as s
+on s.id_s = p.id_sale
+where f.anno_produzioni between '1962-1-1' and '1962-12-31'
+and s.citta = 'Roma'
+
+4- film proiettati nel maggior numero di cinema della città di Roma
+SELECT f.titolo
+FROM film AS f
+INNER JOIN proiezioni AS p
+ON f.id_f=p.id_films
+INNER JOIN sale AS s
+ON s.id_s=p.id_pro
+WHERE s.citta='Roma'
+
+5- trovare gli attori che hanno interpretato il loro ruolo in più film
+select distinct a.nome, f.id_f
+from attori as a
+join recite as r
+on a.id_a = r.id_attore
+join film as f
+on f.id_f = r.id_film
+group by a.id_a
+having count(*) > 1
+
+6- trovate i film in cui recita un solo attore di nazionalità estera
+SELECT COUNT(a.id_a) AS Contatore, a.nome
+FROM attori AS a
+INNER JOIN recite AS r
+ON a.id_a=r.id_attore
+WHERE NOT a.nazionalita='Italiana'
+HAVING Contatore=1
+
+7- trovate gli attori italiani che non hanno mai recitato con altri italiani
+SELECT a.nome
+FROM attori as a
+WHERE a.nazionalita = 'Italiana' AND
+ a.nome not in (
+ SELECT r1.id_attore
+ FROM recite as r1,recite as r2, attori as a2
+ WHERE r1.id_film = r2.id_film
+ AND r2.id_attore = a2.id_a
+ AND a2.nome <> a.nome
+ AND a2.nazionalita = 'Italiana' )
+
+8- trovate i film di registi italiani in cui non recita nessun italiano
+SELECT f.titolo
+FROM film AS f
+INNER JOIN proiezioni AS pr
+ON f.id_f=id_films
+INNER JOIN regista AS r
+ON r.id=pr.id_registi
+INNER JOIN attori AS a
+ON a.id_a=id_attore
+WHERE NOT a.nazionalita='Italiana' AND r.nazionalita='Italiana'
+
+9- trovate i registi che hanno recitato in almeno un loro film
+SELECT DISTINCT re.nome
+FROM film as f
+join recite as r
+on f.id_f = r.id_film
+join proiezioni as p
+on p.id_films = f.id_f
+join regista as re
+on re.id_re = p.id_registi
+WHERE r.id_attore = p.id_registi
+
+10- trovate le proiezioni di tutti i film sentimentali nelle sale di Torino che hanno superato 10000 euro di incasso
+SELECT p.data_proiezione
+FROM proiezioni AS p
+INNER JOIN film AS f
+ON f.id_f=p.id_films
+INNER JOIN sale AS s
+ON s.id_s=id_sale
+WHERE f.genere='Sentimentale' AND s.citta='Torino' AND p.incasso>10000
+
+11- visualizzare in ordine di data le proiezioni del film "Genesis" o di film di fantascienza in cui sono presenti almeno 5 attori
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+12- calcolare l'incasso dei film proiettati per ciascuna citta
+SELECT DISTINCT sum(p.incasso) AS totale 
+FROM proiezioni AS p
+INNER JOIN sale s
+ON s.id_s=p.id_sale
+GROUP BY s.citta
+
+13- visualizzare i film recitati nel corso dell'anno 2019
+SELECT f.titolo
+FROM film AS f
+INNER JOIN recite AS r
+ON f.id_f=r.id_film
+WHERE r.data_recita BETWEEN '2019-01-01' AND '2019-12-31'
+
+14- calcolare il numero totale dei posti delle sale di Milano
+SELECT sum(n_posti) AS Totale
+FROM sale 
+WHERE citta='Milano'
+
+15- visualizzare gli attori  del film nazionali che sono nati tra i 1960 e 2010.
+select a.nome
+from attori as a
+join recite as r
+on a.id_a = r.id_attore
+join film as f
+on f.id_f = r.id_film
+where a.anno_nascita between '1960-01-01' and '2010-12-31'
+and f.titolo = 'Dr.Strange'

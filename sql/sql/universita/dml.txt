@@ -1,0 +1,24 @@
+ALTER TABLE `universita`.`classi` ADD COLUMN `sezione` VARCHAR(45) NOT NULL AFTER `id_alunno`, CHANGE COLUMN `n_classe` `id_cl` INT(11) NOT NULL AUTO_INCREMENT, DROP PRIMARY KEY, ADD PRIMARY KEY (`id_cl`) ;
+
+INSERT INTO `universita`.`alunni` (`nome`, `cognome`, `data_nascita`, `eta`) VALUES ('Christian', 'Taurchini', '2001-07-19', 21);
+INSERT INTO `universita`.`alunni` (`nome`, `cognome`, `data_nascita`, `eta`) VALUES ('Dario', 'Santelli', '1998-11-05', 24);
+INSERT INTO `universita`.`alunni` (`nome`, `cognome`, `data_nascita`, `eta`) VALUES ('Aandrei', 'Musat', '2002-03-14', 20);
+INSERT INTO `universita`.`alunni` (`nome`, `cognome`, `data_nascita`, `eta`) VALUES ('Luca', 'Servadio', '1996-02-18', 26);
+INSERT INTO `universita`.`alunni` (`nome`, `cognome`, `data_nascita`, `eta`) VALUES ('Lucia', 'Serviluto', '1987-05-08', 35);
+
+INSERT INTO `universita`.`docenti` (`nome`, `cognome`, `data_nascita`, `eta`) VALUES ('Paulo', 'Dybala', '1980-09-02', 42);
+INSERT INTO `universita`.`docenti` (`nome`, `cognome`, `data_nascita`, `eta`) VALUES ('Riccardo', 'Scafandro', '1960-05-13', 62);
+INSERT INTO `universita`.`docenti` (`nome`, `cognome`, `data_nascita`, `eta`) VALUES ('Pippo', 'Franco', '1971-11-10', 51);
+
+INSERT INTO `universita`.`corsi` (`nome_corso`, `inizio_corso`, `fine_corso`, `id_insegnante`) VALUES ('Chimica', '2020-05-01', '2020-11-01', 1);
+INSERT INTO `universita`.`corsi` (`nome_corso`, `inizio_corso`, `fine_corso`, `id_insegnante`) VALUES ('Fisica', '2020-06-02', '2020-12-02', 1);
+INSERT INTO `universita`.`corsi` (`nome_corso`, `inizio_corso`, `fine_corso`, `id_insegnante`) VALUES ('Inglese', '2000-01-15', '2001-01-01', 2);
+INSERT INTO `universita`.`corsi` (`nome_corso`, `inizio_corso`, `fine_corso`, `id_insegnante`) VALUES ('Letteratura', '2000-02-18', '2000-06-10', 2);
+INSERT INTO `universita`.`corsi` (`nome_corso`, `inizio_corso`, `fine_corso`, `id_insegnante`) VALUES ('Informatica', '2010-10-30', '2011-03-15', 3);
+
+INSERT INTO `universita`.`classi` (`id_corso`, `id_alunno`, `sezione`) VALUES (1, 1, '1C');
+INSERT INTO `universita`.`classi` (`id_corso`, `id_alunno`, `sezione`) VALUES (1, 2, '1C');
+INSERT INTO `universita`.`classi` (`id_corso`, `id_alunno`, `sezione`) VALUES (2, 1, '4C');
+INSERT INTO `universita`.`classi` (`id_corso`, `id_alunno`, `sezione`) VALUES (2, 3, '4C');
+INSERT INTO `universita`.`classi` (`id_corso`, `id_alunno`, `sezione`) VALUES (3, 1, '8A');
+INSERT INTO `universita`.`classi` (`id_corso`, `id_alunno`, `sezione`) VALUES (3, 3, '8A');

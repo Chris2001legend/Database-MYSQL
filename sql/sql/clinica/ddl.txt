@@ -1,0 +1,169 @@
+CREATE DATABASE  IF NOT EXISTS `clinica` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `clinica`;
+-- MySQL dump 10.13  Distrib 5.7.27, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: clinica
+-- ------------------------------------------------------
+-- Server version	5.7.27-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `prenotazioni`
+--
+
+DROP TABLE IF EXISTS `prenotazioni`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prenotazioni` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data` datetime DEFAULT NULL,
+  `id_specialista` int(11) DEFAULT NULL,
+  `id_paziente` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_prenotazioni_pazienti` (`id_paziente`),
+  KEY `fk_prenotazioni_specialisti` (`id_specialista`),
+  CONSTRAINT `fk_prenotazioni_pazienti` FOREIGN KEY (`id_paziente`) REFERENCES `pazienti` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_prenotazioni_specialisti` FOREIGN KEY (`id_specialista`) REFERENCES `specialisti` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prenotazioni`
+--
+
+LOCK TABLES `prenotazioni` WRITE;
+/*!40000 ALTER TABLE `prenotazioni` DISABLE KEYS */;
+INSERT INTO `prenotazioni` VALUES (2,'2021-06-01 12:00:00',1,2),(3,'2021-07-01 12:00:00',1,2),(4,'2021-08-01 12:00:00',2,2),(5,'2021-09-01 12:00:00',2,2),(6,'2021-10-01 12:00:00',1,3);
+/*!40000 ALTER TABLE `prenotazioni` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `visite`
+--
+
+DROP TABLE IF EXISTS `visite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `visite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_prenotazione` int(11) NOT NULL,
+  `descrizione` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_visite_prenotazioni` (`id_prenotazione`),
+  CONSTRAINT `fk_visite_prenotazioni` FOREIGN KEY (`id_prenotazione`) REFERENCES `prenotazioni` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `visite`
+--
+
+LOCK TABLES `visite` WRITE;
+/*!40000 ALTER TABLE `visite` DISABLE KEYS */;
+INSERT INTO `visite` VALUES (1,2,'visita generale');
+/*!40000 ALTER TABLE `visite` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pazienti`
+--
+
+DROP TABLE IF EXISTS `pazienti`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pazienti` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `cognome` varchar(45) NOT NULL,
+  `codice_fiscale` varchar(45) NOT NULL,
+  `eta` int(11) NOT NULL,
+  `stato` char(1) NOT NULL DEFAULT 'A',
+  `utente_aggiornamento` varchar(45) DEFAULT NULL,
+  `data_aggiornamento` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pazienti`
+--
+
+LOCK TABLES `pazienti` WRITE;
+/*!40000 ALTER TABLE `pazienti` DISABLE KEYS */;
+INSERT INTO `pazienti` VALUES (2,'Marco','Saltarelli','YYYYYYYYYY',18,'A',NULL,'2022-02-01 12:21:05'),(3,'Marco','Verdi','YYYYYYYYYY',65,'A','laura35','2022-02-01 12:21:05'),(4,'Antonio','Banderas','YYYYYYYYYY',65,'A',NULL,'2022-02-01 12:21:05'),(5,'paolo','paolino','YYYYYYYYYY',25,'A',NULL,'2022-02-01 12:21:05'),(7,'marco','baudo','YYYYYYYYYY',85,'A',NULL,'2022-02-01 12:21:43'),(9,'antonio','curtis','YYYYYYYYYY',50,'A',NULL,'2022-02-01 14:43:43'),(10,'Roberto','Gialli','YYYYYYYYYY',25,'A',NULL,'2022-02-02 14:43:05'),(11,'pietro','verdi','YYYYYYYYYY',50,'A',NULL,'2022-04-13 15:41:01'),(13,'roberto','gialli','YYYYYYYYYY',50,'A',NULL,'2022-04-13 15:48:28'),(14,'teresa','bianchi','YYYYYYYYYY',25,'A',NULL,'2022-04-13 15:52:58'),(15,'Luca','luca','GRPDPA65E29H501C',25,'A',NULL,'2022-04-15 12:32:09'),(18,'xxx','xxxx','GRPDPA65sefH501C',26,'A',NULL,'2022-04-15 12:51:42');
+/*!40000 ALTER TABLE `pazienti` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `prescrizioni`
+--
+
+DROP TABLE IF EXISTS `prescrizioni`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prescrizioni` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_visita` int(11) NOT NULL,
+  `farmaco` varchar(45) NOT NULL,
+  `dosaggio` varchar(45) NOT NULL,
+  `posologia` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_prescrizioni_visite` (`id_visita`),
+  CONSTRAINT `fk_prescrizioni_visite` FOREIGN KEY (`id_visita`) REFERENCES `visite` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prescrizioni`
+--
+
+LOCK TABLES `prescrizioni` WRITE;
+/*!40000 ALTER TABLE `prescrizioni` DISABLE KEYS */;
+INSERT INTO `prescrizioni` VALUES (2,1,'Moment','100','20'),(3,1,'Zantac','100','15');
+/*!40000 ALTER TABLE `prescrizioni` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `specialisti`
+--
+
+DROP TABLE IF EXISTS `specialisti`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `specialisti` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `cognome` varchar(45) NOT NULL,
+  `professione` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `specialisti`
+--
+
+LOCK TABLES `specialisti` WRITE;
+/*!40000 ALTER TABLE `specialisti` DISABLE KEYS */;
+INSERT INTO `specialisti` VALUES (1,'Paolo','RoSsi','Neurologo'),(2,'Giulia','Verdi','Dentista'),(3,'roberto','rossi','Ortopedico'),(4,'mario','merola','Urologo');
+/*!40000 ALTER TABLE `specialisti` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

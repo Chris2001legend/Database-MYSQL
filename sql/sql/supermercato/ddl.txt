@@ -1,0 +1,47 @@
+CREATE SCHEMA `supermercato` ;
+
+CREATE  TABLE `supermercato`.`categorie` (
+  `id_c` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id_c`) );
+
+CREATE  TABLE `supermercato`.`clienti` (
+  `id_cl` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NOT NULL ,
+  `cognome` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id_cl`) );
+
+CREATE  TABLE `supermercato`.`prodotti` (
+  `id_pr` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(45) NOT NULL ,
+  `prezzo` DECIMAL(5,2) NOT NULL ,
+  `elettrico` TINYINT(4) NOT NULL ,
+  `origine` VARCHAR(45) NOT NULL ,
+  `data_magazzino` DATE NOT NULL ,
+  `id_categoria` INT NOT NULL ,
+  PRIMARY KEY (`id_pr`) ,
+  INDEX `id_c` (`id_categoria` ASC) ,
+  CONSTRAINT `id_c`
+    FOREIGN KEY (`id_categoria` )
+    REFERENCES `supermercato`.`categorie` (`id_c` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE  TABLE `supermercato`.`acquisti` (
+  `id_a` INT NOT NULL AUTO_INCREMENT ,
+  `id_prodotto` INT NOT NULL ,
+  `id_cliente` INT NOT NULL ,
+  `data` DATE NOT NULL ,
+  PRIMARY KEY (`id_a`) ,
+  INDEX `id_pr` (`id_prodotto` ASC) ,
+  INDEX `id_cl` (`id_cliente` ASC) ,
+  CONSTRAINT `id_pr`
+    FOREIGN KEY (`id_prodotto` )
+    REFERENCES `supermercato`.`prodotti` (`id_pr` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `id_cl`
+    FOREIGN KEY (`id_cliente` )
+    REFERENCES `supermercato`.`clienti` (`id_cl` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

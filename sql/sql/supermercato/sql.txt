@@ -1,0 +1,13 @@
+1- Elencare tutti gli alimenti che abbiano un prezzo superiore a 10 euro
+
+
+2- Elencare tutti i casalinghi che prevedono l'uso di elettricità
+
+
+3- Elencare gli acquisti di alimenti effettuati ad una determinata data
+
+
+4- Elencare i clienti che hanno acquistato prodotti alimentari
+
+
+5- Elencare gli alimenti che hanno una origine straniera e sono stati acquistati tra il 01/04/2022 e il 12/04/2022

@@ -1,0 +1,97 @@
+1) trovare i pazienti che hanno prenotato per lo specialista con professione di neurologo
+
+SELECT pazienti.id, pazienti.nome, pazienti.cognome, specialisti.nome
+FROM pazienti
+INNER JOIN prenotazioni
+ON id_paziente = pazienti.id
+INNER JOIN specialisti
+ON id_specialista = specialisti.id
+WHERE professione = "Neurologo"
+
+2) Trovate i pazienti che hanno ricevuto come prescrizione il farmaco Moment
+SELECT p.id, p.nome, p.cognome
+FROM pazienti AS p
+INNER JOIN prenotazioni AS pt
+ON p.id = pt.id_paziente
+INNER JOIN visite AS v
+ON pt.id = v.id_prenotazione
+INNER JOIN prescrizioni AS pr
+ON v.id = pr.id_visita
+WHERE pr.farmaco = "Moment"
+
+3) Trovate gli specialisti che hanno effettuato visite per i pazienti con eta inferiore ai 18 anni
+SELECT s.id,  s.nome,s.cognome
+FROM specialisti AS s
+INNER JOIN prenotazioni as pr
+ON s.id =pr.id_specialista
+INNER JOIN visite AS v
+ON pr.id = v.id_prenotazione
+INNER JOIN pazienti as p
+ON p.id= pr.id_paziente
+WHERE p.eta <=18
+
+
+4) Elencare le prenotazioni che non hanno generato visite
+select a.id, a.data
+from prenotazioni a
+join visite b
+on not a.id= b.id_prenotazione
+
+5) Trovate il numero totale dei pazienti in cura per ciascun specialista
+SELECT s.nome,s.cognome, COUNT(p.nome) AS clienti
+FROM specialisti AS s 
+INNER JOIN prenotazioni AS pr
+ON s.id =pr.id_specialista
+INNER JOIN  pazienti AS p
+ON p.id= pr.id_paziente
+GROUP BY s.nome
+ORDER BY s.nome
+
+6) Trovate gli specialisti che hanno prescritto il farmaco Zantac
+select s.id,s.nome,s.cognome
+from specialisti as s
+INNER JOIN prenotazioni as pr
+ON s.id =pr.id_specialista
+INNER JOIN visite AS v
+ON pr.id = v.id_prenotazione
+INNER JOIN  prescrizioni as pt
+ON v.id=pt.id_visita
+where pt.farmaco='Zantac'
+
+
+7) Elencare le prenotazioni con l'indicazione se ha generato una visita
+select
+a.id,
+a.data
+from prenotazioni a
+join visite b
+on a.id= b.id_prenotazione
+
+8) Elencare le prenotazioni effettuate dai pazienti con età superiore ai 18 anni nel periodo dal 1 gennaio al 31 maggio 2021
+SELECT p.id,p.nome,p.cognome,p.eta,pr.data
+from pazienti as p 
+join prenotazioni as pr
+ON p.id = pr.id_paziente
+where p.eta >= 18 and pr.data BETWEEN '2021-01-01' AND '2021-05-31'
+
+9) Elencare tutti i pazienti che hanno effettuato visite con lo specialista Paolo Rossi
+SELECT p.id, p.nome, p.cognome
+FROM specialisti AS s
+INNER JOIN prenotazioni  as pt
+ON s.id = pt.id_specialista
+INNER JOIN visite AS v
+ON pt.id = v.id_prenotazione
+INNER JOIN pazienti AS p
+ON p.id = pt.id_paziente
+where s.nome= 'paolo' AND  s.cognome = 'rossi'
+
+10) Estrarre i pazienti maggiorenni che hanno effettuato più prenotazioni per lo stesso specialista
+SELECT p.nome,p.cognome, COUNT(p.id) AS counter
+FROM pazienti p
+INNER JOIN prenotazioni pr
+ON p.id=pr.id_paziente
+INNER JOIN specialisti s
+ON s.id=pr.id_specialista
+WHERE p.eta>=18 
+GROUP BY p.nome
+ORDER BY counter DESC

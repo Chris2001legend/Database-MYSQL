@@ -1,0 +1,8 @@
+1) Trovate gli alunni che si sono iscritti nel 2020 al corso di ingegneria
+2) Trovate gli alunni che sono iscritti al corso di chimica con il docente Mario Rossi
+3) Trovare tutti gli alunni che hanno partecipato ai corsi dal 1/2020 a 5/2020
+4) Elencati i docenti che non hanno avuto docenza nel 2020
+5) Elencati il numero degli alunni che sono iscritti ai corsi del 2020
+6) Elencati i docenti di eta >= 25 anni che insegnano a corsi composti da minimo 5 persone
+7) Trovate i docenti che insegnano al corso di Medicina e che hanno iscritti provenienti da altre facoltà scientifiche
+8) Calcolare il conteggio di tutti gli alunni raggruppati per i corsi effettuati dai docenti con 5 anni di esperienza
